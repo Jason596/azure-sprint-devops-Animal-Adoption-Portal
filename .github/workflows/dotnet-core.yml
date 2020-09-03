@@ -21,16 +21,16 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
     # publish nuget packages -- start
-      - name: Pack Packages
-        run: dotnet pack ./AnimalAdoption.Common.Logic/AnimalAdoption.Common.Logic.csproj --configuration Release --no-build --output jason596.taa-portal\nupkgs\Release
-      - name: Setup Nuget.exe
-        uses: warrenbuckley/Setup-Nuget@v1
-      - name: Nuget Add Source
-        run: nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/emiliano84/index.json" -UserName jason596 -Password ${{ secrets.ACCESS_TOKEN }}
-      - name: Nuget SetAPIKey
-        run: nuget setApiKey ${{ secrets.ACCESS_TOKEN }} -Source "GitHub"
-      - name: Nuget Push
-        run: nuget push jason596.taa-portal\nupkgs\Release\*.nupkg -Source "GitHub"
+#       - name: Pack Packages
+#         run: dotnet pack ./AnimalAdoption.Common.Logic/AnimalAdoption.Common.Logic.csproj --configuration Release --no-build --output jason596.taa-portal\nupkgs\Release
+#       - name: Setup Nuget.exe
+#         uses: warrenbuckley/Setup-Nuget@v1
+#       - name: Nuget Add Source
+#         run: nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/emiliano84/index.json" -UserName jason596 -Password ${{ secrets.ACCESS_TOKEN }}
+#       - name: Nuget SetAPIKey
+#         run: nuget setApiKey ${{ secrets.ACCESS_TOKEN }} -Source "GitHub"
+#       - name: Nuget Push
+#         run: nuget push jason596.taa-portal\nupkgs\Release\*.nupkg -Source "GitHub"
         # - name: Test
         #   run: dotnet test --no-restore --verbosity normal
       - name: List out directory contents
