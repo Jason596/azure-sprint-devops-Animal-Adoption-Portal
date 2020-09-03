@@ -20,12 +20,13 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
-    # - name: Test
-    #   run: dotnet test --no-restore --verbosity normal
+      # - name: Test
+      #   run: dotnet test --no-restore --verbosity normal
       - name: List out directory contents
-        run: |
-        echo "Listing the contents of the GitHub workspace directory"
-        ls ${{ github.workspace }}
-
-        echo "Recursively listing all contents of the current directory"
-        ls -R
+        run: echo "Listing the contents of the GitHub workspace directory"
+      - name: work directory
+        run: ls ${{ github.workspace }}
+      - name: "Recursively listing all contents of the current directory"
+        run: echo "Recursively listing all contents of the current directory"
+      - name: work directory
+        run: ls -R
