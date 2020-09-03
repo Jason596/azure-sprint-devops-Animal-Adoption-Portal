@@ -16,18 +16,13 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.301
-      #       - name: Install dependencies
-      #         run: dotnet restore
-      #       - name: Build
-      #         run: dotnet build --configuration Release --no-restore
-      - name: Setup MSBuild.exe
-        uses: warrenbuckley/Setup-MSBuild@v1
-      - name: MSBuild Restore
-        run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release" /t:restore
-      - name: MSBuild Build
-        run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release"
-      - name: MSBuild Pack
-        run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release" /t:pack
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+    # publish nuget packages -- start
+      - name: Pack Packages
+        run: dotnet pack ./AnimalAdoption.Common.Logic/AnimalAdoption.Common.Logic.csproj --configuration Release --no-build --output jason596.taa-portal\nupkgs\Release
       - name: Setup Nuget.exe
         uses: warrenbuckley/Setup-Nuget@v1
       - name: Nuget Add Source
@@ -35,7 +30,7 @@ jobs:
       - name: Nuget SetAPIKey
         run: nuget setApiKey ${{ secrets.ACCESS_TOKEN }} -Source "GitHub"
       - name: Nuget Push
-        run: nuget push Yugen.Toolkit.Standard\bin\Release\*.nupkg -Source "GitHub"
+        run: nuget push jason596.taa-portal\nupkgs\Release\*.nupkg -Source "GitHub"
         # - name: Test
         #   run: dotnet test --no-restore --verbosity normal
       - name: List out directory contents
