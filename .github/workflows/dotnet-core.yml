@@ -22,10 +22,8 @@ jobs:
       #         run: dotnet build --configuration Release --no-restore
       - name: Setup MSBuild.exe
         uses: warrenbuckley/Setup-MSBuild@v1
-
       - name: MSBuild Restore
         run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release" /t:restore     
-
       - name: MSBuild Build
         run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release"
       - name: MSBuild Pack
