@@ -16,10 +16,28 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.301
-      - name: Install dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+#       - name: Install dependencies
+#         run: dotnet restore
+#       - name: Build
+      #         run: dotnet build --configuration Release --no-restore
+      - name: Setup MSBuild.exe
+        uses: warrenbuckley/Setup-MSBuild@v1
+
+      - name: MSBuild Restore
+        run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release" /t:restore     
+
+      - name: MSBuild Build
+        run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release"
+      - name: MSBuild Pack
+        run: msbuild Yugen.Toolkit.Standard\Yugen.Toolkit.Standard.csproj /p:Configuration="Release" /t:pack
+      - name: Setup Nuget.exe
+        uses: warrenbuckley/Setup-Nuget@v1
+      - name: Nuget Add Source
+        run: nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/emiliano84/index.json" -UserName jason596 -Password ${{ secrets.access_token }}
+      - name: Nuget SetAPIKey
+        run: nuget setApiKey ${{ secrets.access_token }} -Source "GitHub"
+      - name: Nuget Push
+        run: nuget push Yugen.Toolkit.Standard\bin\Release\*.nupkg -Source "GitHub"
         # - name: Test
         #   run: dotnet test --no-restore --verbosity normal
       - name: List out directory contents
